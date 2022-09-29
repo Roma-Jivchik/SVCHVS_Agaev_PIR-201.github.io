@@ -227,6 +227,34 @@
                 <div class="code-title title">
                   <span class="code-title__text">Code</span>
                 </div>
+                <pre><code class="language-C#">using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
+  
+namespace DepartmentAutomation.Web.Controllers
+{
+   [ApiController]
+   public abstract class ApiControllerBase : ControllerBase
+    {
+      public async Task(Welder) GetById(string id){
+        try{
+          var welder = await welderRepository.GetByIdAsync(id);
+
+          if(welder is null){
+            return NotFound();
+          }
+
+          await weldingContext.SaveChangesAsync();
+
+          return welder.Entity;
+        }
+        catch(Exception e){
+          return StatusCode(500, e.getMessage());
+        }
+      }
+    }
+}
+</code></pre>
               </div>
             </div>
           </div>
